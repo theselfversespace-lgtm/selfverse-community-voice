@@ -1,0 +1,616 @@
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>THE SELFVERSE — Your Voice</title>
+
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: Arial, Helvetica, sans-serif;
+      background:
+        radial-gradient(circle at 15% 20%, rgba(130, 90, 255, 0.18), transparent 30%),
+        radial-gradient(circle at 85% 80%, rgba(0, 220, 190, 0.12), transparent 30%),
+        #08090f;
+      color: #ffffff;
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    .container {
+      width: min(920px, 92%);
+      margin: auto;
+    }
+
+    /* HERO */
+
+    header {
+      text-align: center;
+      padding: 70px 20px 45px;
+    }
+
+    .logo {
+      font-size: 14px;
+      letter-spacing: 5px;
+      font-weight: 700;
+      opacity: 0.75;
+      margin-bottom: 25px;
+    }
+
+    h1 {
+      font-size: clamp(42px, 8vw, 78px);
+      line-height: 0.95;
+      letter-spacing: -3px;
+      background: linear-gradient(90deg, #ffffff, #a89cff, #73e6d4);
+      -webkit-background-clip: text;
+      color: transparent;
+      margin-bottom: 22px;
+    }
+
+    .tagline {
+      font-size: clamp(18px, 3vw, 25px);
+      font-weight: 600;
+      margin-bottom: 12px;
+    }
+
+    .intro {
+      max-width: 650px;
+      margin: auto;
+      color: #a9abb8;
+      line-height: 1.7;
+      font-size: 16px;
+    }
+
+    /* CARD */
+
+    .survey-card {
+      background: rgba(20, 21, 32, 0.88);
+      border: 1px solid rgba(255,255,255,0.09);
+      border-radius: 28px;
+      padding: clamp(22px, 5vw, 48px);
+      margin-bottom: 60px;
+      box-shadow: 0 30px 100px rgba(0,0,0,0.35);
+      backdrop-filter: blur(18px);
+    }
+
+    .question {
+      margin-bottom: 38px;
+    }
+
+    .question-number {
+      color: #9d91ff;
+      font-size: 13px;
+      font-weight: bold;
+      letter-spacing: 2px;
+      margin-bottom: 9px;
+      text-transform: uppercase;
+    }
+
+    .question h2 {
+      font-size: clamp(20px, 4vw, 27px);
+      margin-bottom: 17px;
+    }
+
+    .options {
+      display: grid;
+      gap: 11px;
+    }
+
+    .option {
+      position: relative;
+    }
+
+    .option input {
+      position: absolute;
+      opacity: 0;
+    }
+
+    .option label {
+      display: block;
+      padding: 17px 18px;
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 15px;
+      background: rgba(255,255,255,0.025);
+      cursor: pointer;
+      transition: 0.2s ease;
+      color: #d8d9df;
+    }
+
+    .option label:hover {
+      border-color: rgba(157,145,255,0.7);
+      transform: translateY(-1px);
+    }
+
+    .option input:checked + label {
+      border-color: #9d91ff;
+      background: rgba(157,145,255,0.12);
+      color: #ffffff;
+      box-shadow: 0 0 0 1px rgba(157,145,255,0.15);
+    }
+
+    /* TEXT AREA */
+
+    textarea {
+      width: 100%;
+      min-height: 135px;
+      resize: vertical;
+      padding: 17px;
+      border-radius: 15px;
+      border: 1px solid rgba(255,255,255,0.1);
+      background: rgba(255,255,255,0.035);
+      color: white;
+      font: inherit;
+      outline: none;
+    }
+
+    textarea:focus {
+      border-color: #9d91ff;
+    }
+
+    textarea::placeholder {
+      color: #737582;
+    }
+
+    /* BUTTON */
+
+    .submit-btn {
+      width: 100%;
+      padding: 19px;
+      border: none;
+      border-radius: 16px;
+      background: linear-gradient(90deg, #8d80ff, #62d8c7);
+      color: #08090f;
+      font-size: 16px;
+      font-weight: 800;
+      cursor: pointer;
+      transition: 0.2s ease;
+    }
+
+    .submit-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 15px 35px rgba(100,200,190,0.18);
+    }
+
+    .submit-btn:disabled {
+      opacity: 0.6;
+      cursor: not-allowed;
+      transform: none;
+    }
+
+    /* SUCCESS */
+
+    .success {
+      display: none;
+      text-align: center;
+      padding: 45px 15px;
+    }
+
+    .success-icon {
+      font-size: 55px;
+      margin-bottom: 18px;
+    }
+
+    .success h2 {
+      font-size: 30px;
+      margin-bottom: 12px;
+    }
+
+    .success p {
+      color: #a9abb8;
+      line-height: 1.7;
+    }
+
+    footer {
+      text-align: center;
+      color: #6f7180;
+      font-size: 13px;
+      padding: 0 20px 45px;
+    }
+
+    @media(max-width:600px) {
+      header {
+        padding-top: 45px;
+      }
+
+      .survey-card {
+        border-radius: 20px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+<header>
+  <div class="logo">THE SELFVERSE</div>
+
+  <h1>Your Voice.<br>Your SELFVERSE.</h1>
+
+  <div class="tagline">
+    Help us shape what comes next.
+  </div>
+
+  <p class="intro">
+    THE SELFVERSE is growing, and we want to build it with you.
+    Tell us what interests you, what you need, and what you'd like
+    to see become part of the SELFVERSE journey.
+  </p>
+</header>
+
+
+<main class="container">
+
+  <section class="survey-card">
+
+    <form id="surveyForm">
+
+      <!-- QUESTION 1 -->
+
+      <div class="question">
+        <div class="question-number">01 · First impression</div>
+
+        <h2>Have you heard about THE SELFVERSE before?</h2>
+
+        <div class="options">
+
+          <div class="option">
+            <input type="radio" name="heardBefore" value="Yes, I know about it" id="heard1" required>
+            <label for="heard1">👀 Yes, I know about it</label>
+          </div>
+
+          <div class="option">
+            <input type="radio" name="heardBefore" value="I've heard a little" id="heard2">
+            <label for="heard2">🙂 I've heard a little</label>
+          </div>
+
+          <div class="option">
+            <input type="radio" name="heardBefore" value="This is my first time" id="heard3">
+            <label for="heard3">🆕 This is my first time</label>
+          </div>
+
+        </div>
+      </div>
+
+
+      <!-- QUESTION 2 -->
+
+      <div class="question">
+        <div class="question-number">02 · Interests</div>
+
+        <h2>What interests you most about THE SELFVERSE?</h2>
+
+        <div class="options">
+
+          <div class="option">
+            <input type="radio" name="interest" value="Understanding myself" id="interest1" required>
+            <label for="interest1">🧠 Understanding myself</label>
+          </div>
+
+          <div class="option">
+            <input type="radio" name="interest" value="Talking to a counsellor" id="interest2">
+            <label for="interest2">💬 Talking to a counsellor</label>
+          </div>
+
+          <div class="option">
+            <input type="radio" name="interest" value="Relationship support" id="interest3">
+            <label for="interest3">❤️ Relationship support</label>
+          </div>
+
+          <div class="option">
+            <input type="radio" name="interest" value="Student support" id="interest4">
+            <label for="interest4">🎓 Student support</label>
+          </div>
+
+          <div class="option">
+            <input type="radio" name="interest" value="Career guidance" id="interest5">
+            <label for="interest5">🎯 Career guidance</label>
+          </div>
+
+          <div class="option">
+            <input type="radio" name="interest" value="Personal growth" id="interest6">
+            <label for="interest6">🌱 Personal growth</label>
+          </div>
+
+        </div>
+      </div>
+
+
+      <!-- QUESTION 3 -->
+
+      <div class="question">
+        <div class="question-number">03 · Interest level</div>
+
+        <h2>Would you consider using THE SELFVERSE?</h2>
+
+        <div class="options">
+
+          <div class="option">
+            <input type="radio" name="wouldUse" value="Definitely" id="use1" required>
+            <label for="use1">🔥 Definitely</label>
+          </div>
+
+          <div class="option">
+            <input type="radio" name="wouldUse" value="Maybe" id="use2">
+            <label for="use2">🤔 Maybe</label>
+          </div>
+
+          <div class="option">
+            <input type="radio" name="wouldUse" value="Want to know more" id="use3">
+            <label for="use3">👀 I want to know more</label>
+          </div>
+
+          <div class="option">
+            <input type="radio" name="wouldUse" value="Probably not" id="use4">
+            <label for="use4">Not sure yet</label>
+          </div>
+
+        </div>
+      </div>
+
+
+      <!-- QUESTION 4 -->
+
+      <div class="question">
+        <div class="question-number">04 · Improvements</div>
+
+        <h2>What would make THE SELFVERSE better?</h2>
+
+        <div class="options">
+
+          <div class="option">
+            <input type="radio" name="improvement" value="Easier appointment booking" id="imp1" required>
+            <label for="imp1">📅 Easier appointment booking</label>
+          </div>
+
+          <div class="option">
+            <input type="radio" name="improvement" value="Online counselling" id="imp2">
+            <label for="imp2">💬 Online counselling</label>
+          </div>
+
+          <div class="option">
+            <input type="radio" name="improvement" value="Self-growth activities" id="imp3">
+            <label for="imp3">🧠 Self-growth activities</label>
+          </div>
+
+          <div class="option">
+            <input type="radio" name="improvement" value="Interactive games" id="imp4">
+            <label for="imp4">🎮 Interactive games</label>
+          </div>
+
+          <div class="option">
+            <input type="radio" name="improvement" value="Mental wellness resources" id="imp5">
+            <label for="imp5">📚 Mental wellness resources</label>
+          </div>
+
+          <div class="option">
+            <input type="radio" name="improvement" value="Better mobile experience" id="imp6">
+            <label for="imp6">📱 Better mobile experience</label>
+          </div>
+
+          <div class="option">
+            <input type="radio" name="improvement" value="More privacy and confidentiality" id="imp7">
+            <label for="imp7">🔒 More privacy & confidentiality</label>
+          </div>
+
+        </div>
+      </div>
+
+
+      <!-- QUESTION 5 -->
+
+      <div class="question">
+        <div class="question-number">05 · Your vision</div>
+
+        <h2>What would you like to see in THE SELFVERSE?</h2>
+
+        <div class="options">
+
+          <div class="option">
+            <input type="radio" name="focus" value="Self-awareness" id="focus1" required>
+            <label for="focus1">🪞 Self-awareness</label>
+          </div>
+
+          <div class="option">
+            <input type="radio" name="focus" value="Emotional wellbeing" id="focus2">
+            <label for="focus2">💚 Emotional wellbeing</label>
+          </div>
+
+          <div class="option">
+            <input type="radio" name="focus" value="Student life" id="focus3">
+            <label for="focus3">🎓 Student life</label>
+          </div>
+
+          <div class="option">
+            <input type="radio" name="focus" value="Relationships" id="focus4">
+            <label for="focus4">❤️ Relationships</label>
+          </div>
+
+          <div class="option">
+            <input type="radio" name="focus" value="Confidence" id="focus5">
+            <label for="focus5">✨ Confidence</label>
+          </div>
+
+          <div class="option">
+            <input type="radio" name="focus" value="Career and future" id="focus6">
+            <label for="focus6">🚀 Career & future</label>
+          </div>
+
+          <div class="option">
+            <input type="radio" name="focus" value="Personal development" id="focus7">
+            <label for="focus7">🌱 Personal development</label>
+          </div>
+
+        </div>
+      </div>
+
+
+      <!-- QUESTION 6 -->
+
+      <div class="question">
+        <div class="question-number">06 · Open voice</div>
+
+        <h2>Anything else you'd like us to know?</h2>
+
+        <textarea
+          id="feedback"
+          name="feedback"
+          maxlength="1000"
+          placeholder="Tell us honestly. What would make THE SELFVERSE more useful, welcoming or meaningful to you?"
+        ></textarea>
+      </div>
+
+
+      <button class="submit-btn" id="submitBtn" type="submit">
+        SUBMIT MY VOICE →
+      </button>
+
+    </form>
+
+
+    <!-- SUCCESS MESSAGE -->
+
+    <div class="success" id="successMessage">
+
+      <div class="success-icon">🌱</div>
+
+      <h2>Thank you for your voice.</h2>
+
+      <p>
+        Your response has been received.<br>
+        You're helping shape what THE SELFVERSE becomes next.
+      </p>
+
+    </div>
+
+  </section>
+
+</main>
+
+
+<footer>
+  © 2026 THE SELFVERSE · Your voice helps us grow.
+</footer>
+
+
+<!-- FIREBASE -->
+
+<script type="module">
+
+  import { initializeApp } from
+    "https://www.gstatic.com/firebasejs/11.0.2/firebase-app.js";
+
+  import {
+    getFirestore,
+    collection,
+    addDoc,
+    serverTimestamp
+  } from
+    "https://www.gstatic.com/firebasejs/11.0.2/firebase-firestore.js";
+
+
+  // ===============================
+  // FIREBASE CONFIG
+  // ===============================
+
+  const firebaseConfig = {
+    apiKey: "AIzaSyBdDoX-Eb6WADP9WTwwp_mix73xVxc2H9w",
+    authDomain: "the-selfverse-community-voice.firebaseapp.com",
+    projectId: "the-selfverse-community-voice",
+    storageBucket: "the-selfverse-community-voice.firebasestorage.app",
+    messagingSenderId: "394978342331",
+    appId: "1:394978342331:web:df8f09b5ad49218a13009e"
+  };
+
+
+  const app = initializeApp(firebaseConfig);
+  const db = getFirestore(app);
+
+
+  // ===============================
+  // FORM SUBMISSION
+  // ===============================
+
+  const form = document.getElementById("surveyForm");
+  const submitBtn = document.getElementById("submitBtn");
+  const successMessage = document.getElementById("successMessage");
+
+
+  form.addEventListener("submit", async (event) => {
+
+    event.preventDefault();
+
+    submitBtn.disabled = true;
+    submitBtn.textContent = "SUBMITTING...";
+
+
+    try {
+
+      const response = {
+
+        heardBefore:
+          document.querySelector('input[name="heardBefore"]:checked')?.value || "",
+
+        interest:
+          document.querySelector('input[name="interest"]:checked')?.value || "",
+
+        wouldUse:
+          document.querySelector('input[name="wouldUse"]:checked')?.value || "",
+
+        improvement:
+          document.querySelector('input[name="improvement"]:checked')?.value || "",
+
+        focus:
+          document.querySelector('input[name="focus"]:checked')?.value || "",
+
+        feedback:
+          document.getElementById("feedback").value.trim(),
+
+        submittedAt:
+          serverTimestamp()
+
+      };
+
+
+      await addDoc(
+        collection(db, "communityResponses"),
+        response
+      );
+
+
+      form.style.display = "none";
+      successMessage.style.display = "block";
+
+      window.scrollTo({
+        top: 0,
+        behavior: "smooth"
+      });
+
+    }
+
+    catch (error) {
+
+      console.error("Submission error:", error);
+
+      alert(
+        "Something went wrong while submitting your response. Please try again."
+      );
+
+      submitBtn.disabled = false;
+      submitBtn.textContent = "SUBMIT MY VOICE →";
+
+    }
+
+  });
+
+</script>
+
+</body>
+</html>
+```
